@@ -18,8 +18,12 @@ module PubSub
     end
     
     def fan_out(clazzes, args)
-      clazzes.each{ |clazz| clazz.call(args) }
-      true
+      mutex = Mutex.new
+      
+      mutex.synchronize do
+        clazzes.each{ |clazz| clazz.call(args) }
+        true
+      end
     end
   end 
 end
