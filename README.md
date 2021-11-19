@@ -6,13 +6,13 @@
 
 **Problem:**
 
+* Need a simple and light-weight way to use pub sub design pattern in your application?
+
 **Solution:**
 
+* Use pub-sub gem. So you easily can have set of subscribers and publishers which will interact to each other and decouple your code in a smart way!
+
 **Notes:**
-
-```ruby
-
-```
 
 ## Install
 
@@ -33,5 +33,32 @@ gem 'pub-sub'
 ## Examples
 
 ```ruby
+# set container in initializer
+PubSub::Configuration.this
+# as a container by default it takes Ruby Hash
+
+# set subscribers with class method call
+class SubKlass
+  include PubSub::Subscriber
+
+  def self.call(args)
+    pp args[:message]
+  end
+end
+
+# publish event in order to execute subscribers
+class PubKlass
+  include PubSub::Publisher
+
+  def publish
+    self.pub('event', { message: 'notified' })
+  end
+end
+
+
+PubKlass.new.publish
+
+# here we go! notified 
+pry(main)> 'notified'
 
 ```
