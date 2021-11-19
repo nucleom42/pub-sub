@@ -46,6 +46,9 @@ class SubKlass
   end
 end
 
+# subscribe subscriber to event
+SubKlass.sub('event')
+
 # publish event in order to execute subscribers
 class PubKlass
   include PubSub::Publisher
