@@ -26,7 +26,7 @@ gem install pub-sub
 
 ```ruby
 
-gem 'pub-sub'
+gem 'pub-sub', require: %w[pub_sub/configuration]
 
 ```
 

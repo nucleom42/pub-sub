@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 require 'singleton'
 
+require 'pub_sub/container'
+require 'pub_sub/hash'
+require 'pub_sub/publisher'
+require 'pub_sub/subscriber'
+
 module PubSub
   class Configuration
     private_class_method :new
