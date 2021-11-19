@@ -13,6 +13,11 @@ module PubSub
         PubSub::Configuration.container.sub(event, self.name)
         true
       end
+
+      def unsub(event)
+        PubSub::Configuration.container.unsub(event, self.name)
+        true
+      end
     end
   end
 end

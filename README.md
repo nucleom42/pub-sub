@@ -33,11 +33,12 @@ gem 'pub-sub', require: %w[pub_sub/configuration]
 ## Examples
 
 ```ruby
-# set container in initializer
-PubSub::Configuration.this
-# as a container by default it takes Ruby Hash
+# initialize configuration - set pub-sub container (Ruby Hash by default)
+PubSub::Configuration.init
 
 # set subscribers with class method call
+
+# subscriber #1
 class SubKlass
   include PubSub::Subscriber
 
@@ -46,22 +47,41 @@ class SubKlass
   end
 end
 
-# subscribe subscriber to event
+# subscriber #2
+module Piu
+  class SubKlass2
+    include PubSub::Subscriber
+
+    def self.call(args)
+      args[:message] + '2'
+    end
+  end
+end
+
+# subscribe subscribers to event
 SubKlass.sub('event')
+Piu::SubKlass2.sub('event')
 
 # publish event in order to execute subscribers
 class PubKlass
   include PubSub::Publisher
 
   def publish
-    self.pub('event', { message: 'notified' })
+    self.class.pub('event', { message: 'published' })
   end
 end
 
 
 PubKlass.new.publish
 
-# here we go! notified 
+# here we go! notified 2
 pry(main)> 'notified'
+pry(main)> 'notified2'
 
+# unsubscribe
+Piu::SubKlass2.unsub('event')
+
+PubKlass.new.publish
+# here we go! notified 1
+pry(main)> 'notified'
 ```

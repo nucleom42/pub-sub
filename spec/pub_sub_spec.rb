@@ -5,8 +5,8 @@ require 'spec_helper'
 class PubKlass
   include PubSub::Publisher
 
-  def some_logic
-    "some_logic"
+  def publish
+    self.class.pub('event', { message: 'published' })
   end
 end
 
@@ -31,7 +31,7 @@ end
 describe PubSub do
   context 'when configuration set' do
     before do
-      PubSub::Configuration.this
+      PubSub::Configuration.init
     end
 
     context 'when there are two subscriber to the same event' do
@@ -52,9 +52,25 @@ describe PubSub do
         end
 
         it 'calls Piu::SubKlass2.call' do
-          subject
+          PubKlass.new.publish
           expect(Piu::SubKlass2).to have_received(:call)
         end
+      end
+      
+      context 'when unsub' do
+      
+        before { Piu::SubKlass2.unsub('event') }
+
+        it 'calls SubKlass.call' do
+          PubKlass.new.publish
+          expect(SubKlass).to have_received(:call)
+        end
+
+        it 'calls Piu::SubKlass2.call' do
+          PubKlass.new.publish
+          expect(Piu::SubKlass2).not_to have_received(:call)
+        end
+        
       end
     end
   end

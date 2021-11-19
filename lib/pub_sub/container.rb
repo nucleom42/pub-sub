@@ -3,11 +3,15 @@
 module PubSub
   class Container
 
-    def pub
+    def pub(*)
       raise NotImplementedError
     end
     
-    def sub
+    def sub(*)
+      raise NotImplementedError
+    end
+    
+    def unsub(*)
       raise NotImplementedError
     end
     

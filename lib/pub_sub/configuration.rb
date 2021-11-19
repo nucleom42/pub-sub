@@ -15,6 +15,10 @@ module PubSub
     @@singleton__mutex = Mutex.new
 
     class << self
+      def init(container = ::PubSub::Hash)
+        this(container)
+      end
+      
       def this(container = ::PubSub::Hash)
         return @@singleton__instance if @@singleton__instance
 
