@@ -53,7 +53,7 @@ module Piu
     include PubSub::Subscriber
 
     def self.call(args)
-      args[:message] + '2'
+      pp args[:message] + '2'
     end
   end
 end
@@ -67,7 +67,7 @@ class PubKlass
   include PubSub::Publisher
 
   def publish
-    self.class.pub('event', { message: 'published' })
+    self.class.pub('event', { message: 'notified' })
   end
 end
 
