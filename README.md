@@ -14,6 +14,9 @@
 
 **Notes:**
 
+* Default container used as a Ruby Hash
+* For isolating usage of Hash within one thread, added RequestStore dependency.
+
 ## Install
 
 ```ruby
