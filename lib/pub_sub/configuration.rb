@@ -3,6 +3,7 @@ require 'singleton'
 
 require 'pub_sub/container'
 require 'pub_sub/hash'
+require 'pub_sub/request_store'
 require 'pub_sub/publisher'
 require 'pub_sub/subscriber'
 

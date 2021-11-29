@@ -38,6 +38,8 @@ gem 'pub-sub', require: 'pub_sub/configuration'
 ```ruby
 # initialize configuration - set pub-sub container (Ruby Hash by default)
 PubSub::Configuration.init
+# You can use pure RequestStore as a container
+PubSub::Configuration.init PubSub::RequestStore
 
 # set subscribers with class method call
 
